@@ -7,7 +7,7 @@ describe CommonJS::Environment do
     def self.make_before(path)
       proc do
         @env = CommonJS::Environment.new(:path => path)
-        @env.native('system', TestSystem.new)
+        @env.native('system', QuietSystem.new)
       end
     end
 
@@ -26,7 +26,7 @@ describe CommonJS::Environment do
     end
   end
 
-  class TestSystem
+  class QuietSystem
     def stdio
       self
     end

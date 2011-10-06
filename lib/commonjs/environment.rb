@@ -10,9 +10,7 @@ module CommonJS
 
     def require(module_id)
       unless exports = @exports[module_id]
-        filename = module_id =~ /\.js$/ ? module_id : "#{module_id}.js"
-        filepath = @path.join(filename)
-        fail LoadError, "no such module '#{module_id}'" unless filepath.exist?
+        filepath = find(module_id) or fail LoadError, "no such module '#{module_id}'"
         load = @runtime.eval("(function(require, exports) {#{File.read(filepath)}})", filepath.expand_path)
         @exports[module_id] = exports = @runtime.new_object()
         load.call(method(:require), exports)
@@ -24,8 +22,15 @@ module CommonJS
       @exports[module_id] = impl
     end
 
+    private
+
     def choose
       RubyRacerRuntime.new
+    end
+
+    def find(module_id)
+      filepath = @path.join("#{module_id}.js")
+      filepath if filepath.exist?
     end
 
     class RubyRacerRuntime
