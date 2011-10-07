@@ -19,7 +19,6 @@ describe CommonJS::Environment do
         before(&make_before(tests.join(path)))
 
         it "...yup." do
-          @env.require('test')
           @env.require('program')
         end
       end
