@@ -15,7 +15,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = CommonJS::VERSION
 
+
+  gem.add_dependency "therubyracer", "~> 0.9.9"
+
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec"
-  gem.add_development_dependency "therubyracer", ">= 0.10.0beta1"
 end

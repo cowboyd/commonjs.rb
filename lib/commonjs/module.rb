@@ -12,7 +12,7 @@ module CommonJS
     end
 
     def require_function
-      @require_function ||= lambda do |this, module_id|
+      @require_function ||= lambda do |module_id|
         @env.require(expand(module_id))
       end
     end
