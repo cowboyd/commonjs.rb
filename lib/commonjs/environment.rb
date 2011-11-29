@@ -4,8 +4,8 @@ module CommonJS
 
     attr_reader :runtime
 
-    def initialize(options = {})
-      @runtime = choose
+    def initialize(runtime, options = {})
+      @runtime = runtime
       @path = Pathname(options[:path])
       @modules = {}
     end
@@ -24,30 +24,16 @@ module CommonJS
       @modules[module_id] = Module::Native.new(impl)
     end
 
-    private
-
-    def choose
-      RubyRacerRuntime.new
+    def new_object
+      @runtime['Object'].new
     end
+
+    private
 
     def find(module_id)
       filepath = @path.join("#{module_id}.js")
       filepath if filepath.exist?
     end
 
-    class RubyRacerRuntime
-      def initialize
-        require 'v8'
-        @context = V8::Context.new
-      end
-
-      def new_object
-        @context['Object'].new
-      end
-
-      def eval(source, path)
-        @context.eval(source, path)
-      end
-    end
   end
 end

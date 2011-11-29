@@ -7,7 +7,7 @@ module CommonJS
     def initialize(id, env)
       @id = id
       @env = env
-      @exports = env.runtime.new_object
+      @exports = env.new_object
       @segments = id.split('/')
     end
 

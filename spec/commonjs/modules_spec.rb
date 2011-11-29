@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
+require 'v8'
 
 describe "modules 1.0" do
 
   def self.make_before(path)
     proc do
-      @env = CommonJS::Environment.new(:path => path)
+      @env = CommonJS::Environment.new(V8::Context.new, :path => path)
       @env.native('system', QuietSystem.new)
     end
   end
