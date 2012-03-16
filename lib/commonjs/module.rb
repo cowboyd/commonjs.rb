@@ -2,7 +2,8 @@
 module CommonJS
   class Module
 
-    attr_reader :exports
+    attr_reader :id
+    attr_accessor :exports
 
     def initialize(id, env)
       @id = id

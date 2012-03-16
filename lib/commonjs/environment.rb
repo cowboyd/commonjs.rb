@@ -6,16 +6,16 @@ module CommonJS
 
     def initialize(runtime, options = {})
       @runtime = runtime
-      @path = Pathname(options[:path])
+      @paths = [options[:path]].flatten.map {|path| Pathname(path)}
       @modules = {}
     end
 
     def require(module_id)
       unless mod = @modules[module_id]
         filepath = find(module_id) or fail LoadError, "no such module '#{module_id}'"
-        load = @runtime.eval("(function(require, exports) {#{File.read(filepath)}})", filepath.expand_path)
+        load = @runtime.eval("(function(module, require, exports) {#{File.read(filepath)}})", filepath.expand_path)
         @modules[module_id] = mod = Module.new(module_id, self)
-        load.call(mod.require_function, mod.exports)
+        load.call(mod, mod.require_function, mod.exports)
       end
       return mod.exports
     end
@@ -31,9 +31,7 @@ module CommonJS
     private
 
     def find(module_id)
-      filepath = @path.join("#{module_id}.js")
-      filepath if filepath.exist?
+      @paths.find { |path| path.join("#{module_id}.js").exist? }.join("#{module_id}.js")
     end
-
   end
 end
