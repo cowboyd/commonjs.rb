@@ -9,6 +9,10 @@ describe "load paths: " do
     it "finds modules in that path" do
       @env.require('one').one.should eql 'one'
     end
+
+    it "fails when a module is not in the path" do
+      expect {@env.require('not_here')}.should raise_error LoadError
+    end
   end
   
   describe "with multilpe paths" do
