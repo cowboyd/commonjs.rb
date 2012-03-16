@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["cowboyd@thefrontside.net"]
   gem.description   = "Host CommonJS JavaScript environments in Ruby"
   gem.summary       = "Provide access to your Ruby and Operating System runtime via the commonjs API"
-  gem.homepage      = "http://github.com/cowboyd/commonjs"
+  gem.homepage      = "http://github.com/cowboyd/commonjs.rb"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
