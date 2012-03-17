@@ -1,4 +1,3 @@
-
 module CommonJS
   class Module
 
@@ -13,7 +12,8 @@ module CommonJS
     end
 
     def require_function
-      @require_function ||= lambda do |this, module_id = nil|
+      @require_function ||= lambda do |*args|
+        this, module_id = *args
         module_id ||= this #backwards compatibility with TRR < 0.10
         @env.require(expand(module_id))
       end
