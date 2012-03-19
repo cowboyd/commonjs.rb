@@ -1,5 +1,5 @@
 
-# CommonJS
+# CommonJS [![Build Status](https://secure.travis-ci.org/cowboyd/commonjs.rb.png)](http://travis-ci.org/cowboyd/commonjs.rb)
 
 Host CommonJS JavaScript environments in Ruby
 
