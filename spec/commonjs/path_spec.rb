@@ -26,12 +26,8 @@ describe "load paths: " do
     end
     
     it "respects the order in which paths were specified" do
-      @env.require('one').one.should eql 1
+      @env.require('one').one.to_i.should eql 1
     end
-  end
-  
-  def env_with_path_value(path)
-    CommonJS::Environment.new V8::Context.new, :path => path
-  end
+  end  
 end
 

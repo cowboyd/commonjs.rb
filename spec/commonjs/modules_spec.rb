@@ -1,12 +1,11 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
-require 'v8'
 
 describe "modules 1.0" do
 
   def self.make_before(path)
     proc do
-      @env = CommonJS::Environment.new(V8::Context.new, :path => path)
+      @env = env_with_path_value(path)
       @env.native('system', QuietSystem.new)
     end
   end
@@ -28,8 +27,8 @@ describe "modules 1.0" do
     def stdio
       self
     end
-    def print(*args)
-      # puts args.join('')
+    def print
+      lambda {|*args|}
     end
   end
 end
