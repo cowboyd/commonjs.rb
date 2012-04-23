@@ -4,4 +4,4 @@ source 'http://rubygems.org'
 gemspec
 
 gem "therubyracer", :platforms => :ruby
-gem "therubyrhino", :platforms => :jruby
+gem "therubyrhino", "~> 1.73.3", :platforms => :jruby
