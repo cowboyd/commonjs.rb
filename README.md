@@ -36,9 +36,9 @@ access to the process information, you would say:
 ### Current
 
 * The Ruby Racer (V8) - [https://github.com/cowboyd/therubyracer]
+* The Ruby Rhino (JRuby) - [https://github.com/cowboyd/therubyrhino]
 
 ### Desired
 
-* The Ruby Rhino (JRuby) - [https://github.com/cowboyd/therubyrhino]
 * Johnson (TraceMonkey) - [https://github.com/jbarnette/johnson]
 * Lyndon (MacRuby) - [https://github.com/defunkt/lyndon]
