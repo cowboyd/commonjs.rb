@@ -1,4 +1,3 @@
-
 # CommonJS [![Build Status](https://secure.travis-ci.org/cowboyd/commonjs.rb.png)](http://travis-ci.org/cowboyd/commonjs.rb)
 
 Host CommonJS JavaScript environments in Ruby
@@ -14,12 +13,12 @@ able to use commonjs applications and libraries?
 
 ## Using common JS from Ruby.
 
-`CommonJS` now passes all of the Modules 1.0 unit tests
+`CommonJS` now passes all of the Modules 1.0 unit tests.
 
-    env = CommonJS::Environment.new(:path => '/path/to/lib/dir')
-    env.require('foo.js')
-
-
+```ruby
+env = CommonJS::Environment.new(:path => '/path/to/lib/dir')
+env.require('foo.js')
+```
 
 ## Future directions
 
@@ -29,7 +28,9 @@ The plan however, is to allow you to extend your commonjs environment to have wh
 interfaces you want in it. So for example, if you want to allow filesystem access, as well as
 access to the process information, you would say:
 
-    env.modules :filesystem, :process
+```ruby
+env.modules :filesystem, :process
+```
 
 ## Supported runtimes
 
