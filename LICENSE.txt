@@ -1,3 +1,5 @@
+(The MIT License: http://www.opensource.org/licenses/MIT)
+
 Copyright (c) 2011,2012 Charles Lowell
 
 Permission is hereby granted, free of charge, to any person obtaining
