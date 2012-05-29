@@ -15,6 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = CommonJS::VERSION
 
+  gem.add_dependency 'coffee-script'
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec"
 end
