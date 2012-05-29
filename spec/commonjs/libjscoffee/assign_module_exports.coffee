@@ -1,0 +1,1 @@
+module.exports = -> 'I am your exports from coffee'

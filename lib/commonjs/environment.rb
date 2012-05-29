@@ -1,4 +1,5 @@
 require 'pathname'
+require 'coffee-script'
 module CommonJS
   class Environment
 
@@ -13,7 +14,7 @@ module CommonJS
     def require(module_id)
       unless mod = @modules[module_id]
         filepath = find(module_id) or fail LoadError, "no such module '#{module_id}'"
-        load = @runtime.eval("(function(module, require, exports) {#{File.read(filepath)}})", filepath.expand_path.to_s)
+        load = @runtime.eval("(function(module, require, exports) {#{read_source(filepath)}})", filepath.expand_path.to_s)
         @modules[module_id] = mod = Module.new(module_id, self)
         load.call(mod, mod.require_function, mod.exports)
       end
@@ -31,9 +32,25 @@ module CommonJS
     private
 
     def find(module_id)
-      if loadpath = @paths.find { |path| path.join("#{module_id}.js").exist? }
-        loadpath.join("#{module_id}.js")
+      filename = nil
+      loadpath = @paths.find do |path|
+        filename = ( file_exist?(path, module_id) || file_exist?(path, module_id, 'coffee') )
+        !!filename
       end
+      loadpath.join(filename) if loadpath
+    end
+
+    def read_source(file_path)
+      if file_path.extname == '.coffee'
+        CoffeeScript.compile(file_path, bare: true)
+      else
+        File.read(file_path)
+      end
+    end
+
+    def file_exist?(path, module_id, ext = 'js')
+      filename = "#{module_id}.#{ext}"
+      path.join(filename).exist? ? filename : nil
     end
   end
 end

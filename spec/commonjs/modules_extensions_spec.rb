@@ -8,3 +8,14 @@ describe 'modules extensions' do
     @env.require('assign_module_exports').call().should eql "I am your exports"
   end
 end
+
+describe 'module extensions coffee' do
+
+  before do
+    @env = env_with_path_value File.expand_path('../libjscoffee', __FILE__)
+  end
+
+  it "allows the exports object to be completely replaced" do
+    @env.require('assign_module_exports').call().should eql "I am your exports from coffee"
+  end
+end
