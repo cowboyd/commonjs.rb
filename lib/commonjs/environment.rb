@@ -31,9 +31,12 @@ module CommonJS
     private
 
     def find(module_id)
-      if loadpath = @paths.find { |path| path.join("#{module_id}.js").exist? }
-        loadpath.join("#{module_id}.js")
+      # Add `.js` extension if neccessary.
+      target = if File.extname(module_id) == '.js' then module_id else "#{module_id}.js" end
+      if loadpath = @paths.find { |path| path.join(target).exist? } 
+        loadpath.join(target)
       end
     end
+    
   end
 end
