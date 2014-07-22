@@ -28,15 +28,19 @@ module CommonJS
       @runtime['Object'].new
     end
 
+    def add_path(path)
+      @paths << Pathname(path)
+    end
+
     private
 
     def find(module_id)
       # Add `.js` extension if neccessary.
       target = if File.extname(module_id) == '.js' then module_id else "#{module_id}.js" end
-      if loadpath = @paths.find { |path| path.join(target).exist? } 
+      if loadpath = @paths.find { |path| path.join(target).exist? }
         loadpath.join(target)
       end
     end
-    
+
   end
 end
