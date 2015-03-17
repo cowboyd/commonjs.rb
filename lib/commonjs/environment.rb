@@ -14,7 +14,8 @@ module CommonJS
       unless mod = @modules[module_id]
         filepath = find(module_id) or fail LoadError, "no such module '#{module_id}'"
         load = @runtime.eval("(function(module, require, exports) {#{File.read(filepath)}})", filepath.expand_path.to_s)
-        @modules[module_id] = mod = Module.new(module_id, self)
+        append = filepath.to_s.split('/')[-1] == 'index.js'
+        @modules[module_id] = mod = Module.new(module_id, self, append)
         load.call(mod, mod.require_function, mod.exports)
       end
       return mod.exports
@@ -31,12 +32,14 @@ module CommonJS
     private
 
     def find(module_id)
-      # Add `.js` extension if neccessary.
-      target = if File.extname(module_id) == '.js' then module_id else "#{module_id}.js" end
-      if loadpath = @paths.find { |path| path.join(target).exist? } 
+      try(module_id) || try("#{module_id}.js") || try("#{module_id}/index.js")
+    end
+
+    def try(target)
+      if loadpath = @paths.find { |path| path.join(target).file? }
         loadpath.join(target)
       end
     end
-    
+
   end
 end
