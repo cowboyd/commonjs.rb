@@ -16,7 +16,11 @@ able to use commonjs applications and libraries?
 `CommonJS` now passes all of the Modules 1.0 unit tests.
 
 ```ruby
-env = CommonJS::Environment.new(:path => '/path/to/lib/dir')
+require 'commonjs'
+require 'v8'
+
+runtime = V8::Context.new
+env = CommonJS::Environment.new(runtime, :path => '/path/to/lib/dir')
 env.require('foo.js')
 ```
 
