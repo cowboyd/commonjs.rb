@@ -13,7 +13,7 @@ describe "load paths: " do
     end
 
     it "fails when a module is not in the path" do
-      lambda{@env.require('not_here')}.should raise_error LoadError
+      lambda { @env.require('not_here') }.should raise_error LoadError
     end
   end
 

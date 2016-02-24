@@ -32,3 +32,15 @@ describe "modules 1.0" do
     end
   end
 end
+
+describe "modules" do
+  describe "with js comments" do
+    before do
+      @env = env_with_path_value File.expand_path('../libjs3', __FILE__)
+    end
+    
+    it "finds modules in that path" do
+      @env.require('foo').foo.should == 'foo'
+    end
+  end
+end
