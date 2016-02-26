@@ -4,11 +4,12 @@ module CommonJS
     attr_reader :id
     attr_accessor :exports
 
-    def initialize(id, env)
+    def initialize(id, env, append = false)
       @id = id
       @env = env
       @exports = env.new_object
-      @segments = id.split('/')
+      @segments_init = @segments = id.split('/')
+      @segments_init << [] if append
     end
 
     def require_function
@@ -23,7 +24,7 @@ module CommonJS
 
     def expand(module_id)
       return module_id unless module_id =~ /(\.|\..)/
-      module_id.split('/').inject(@segments[0..-2]) do |path, element|
+      module_id.split('/').inject(@segments_init[0..-2]) do |path, element|
         path.tap do
           if element == '.'
             #do nothing
@@ -35,7 +36,6 @@ module CommonJS
         end
       end.join('/')
     end
-
 
     class Native
 
