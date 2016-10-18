@@ -38,9 +38,13 @@ describe "modules" do
     before do
       @env = env_with_path_value File.expand_path('../libjs3', __FILE__)
     end
-    
+
     it "finds modules in that path" do
       @env.require('foo').foo.should == 'foo'
+    end
+
+    it "automatically appends `index.js` if requiring a directory" do
+      @env.require('sub').index.should == 'index'
     end
   end
 end
